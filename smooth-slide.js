@@ -63,6 +63,9 @@ SmoothSlide.prototype.getPlaceOfItem = function(item) {
 
 // 添加元素
 SmoothSlide.prototype.addItem = function(item) {
+  if (!item) {
+    return
+  }
   // 获取当前可视区内首个，然后把新的内容插到他的上面
   const firstItem = this.findFirstItemInView()
   if (firstItem) {
@@ -76,6 +79,9 @@ SmoothSlide.prototype.addItem = function(item) {
 
 // 删除元素
 SmoothSlide.prototype.removeItem = function(item) {
+  if (!item) {
+    return
+  }
   // 判断要删除元素是在视口上面、里面还是下面
   // 如果在上面，则相应减少top
   // 如果在下面不修改top

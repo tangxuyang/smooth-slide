@@ -47,45 +47,18 @@
   .item--5 {
     background:black
   }
-  /* #container ul li:nth-of-type(1) {
-    background:yellow
-  }
-  #container ul li:nth-of-type(2) {
-    background:turquoise
-  }
-  #container ul li:nth-of-type(3) {
-    background:navajowhite
-  }
-  #container ul li:nth-of-type(4) {
-    background:darkblue
-  }
-  #container ul li:nth-of-type(5) {
-    background:black
-  }
-  #container ul li:nth-of-type(6) {
-    background:yellow
-  }
-  #container ul li:nth-of-type(7) {
-    background:turquoise
-  }
-  #container ul li:nth-of-type(8) {
-    background:navajowhite
-  }
-  #container ul li:nth-of-type(9) {
-    background:darkblue
-  }
-  #container ul li:nth-of-type(10) {
-    background:black
-  } */
   .empty {
     height: 300px;
     width: 200px;
-    /* border: 1px solid red; */
   }
 
   </style>
 </head>
 <body>
+  <div class="operation">
+    <button id="addBtn">add</button>
+    <button id="removeBtn">remove</button>
+  </div>
   <div id="container">
     <ul class="content">
       <li class="item item--1">1</li>
@@ -95,15 +68,24 @@
       <li class="item item--5">5</li>
     </ul>
   </div>
-  <ul>
-    <li class="item" id="xx">xxx</li>
-  </ul>
 
   <script src="./smooth-slide.js"></script>
   <script>
     window.onload = function() {
       window.ss = new SmoothSlide({
         el: '#container'
+      })
+      let addedItems = []
+      addBtn.addEventListener('click', function() {
+        let item = document.createElement('li')
+        item.classList.add('item')
+        item.innerText = Date.now()
+        addedItems.push(item)
+        ss.addItem(item)
+      })
+      removeBtn.addEventListener('click', function() {
+        let item = addedItems.pop()
+        ss.removeItem(item)
       })
     }
   </script>
