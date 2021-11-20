@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>smooth-slide</title>
+  <style>
+  /* * {
+    margin:0;
+    padding:0;
+    list-style:none;
+    float:left
+  } */
+  #container {
+    width:200px;
+    height:300px;
+    position:relative;
+    overflow:hidden;
+    color: red;
+    margin: 200px auto;
+  }
+  #container ul {
+    width:200px;
+    height:300px;
+    position:absolute;
+    padding: 0;
+    margin: 0;
+  }
+  #container ul li {
+    width:200px;
+    height:100px;
+    list-style: none;
+  }
+  .item--1 {
+    background:yellow
+  }
+  .item--2 {
+    background:turquoise
+  }
+  .item--3 {
+    background:navajowhite
+  }
+  .item--4 {
+    background:darkblue
+  }
+  .item--5 {
+    background:black
+  }
+  /* #container ul li:nth-of-type(1) {
+    background:yellow
+  }
+  #container ul li:nth-of-type(2) {
+    background:turquoise
+  }
+  #container ul li:nth-of-type(3) {
+    background:navajowhite
+  }
+  #container ul li:nth-of-type(4) {
+    background:darkblue
+  }
+  #container ul li:nth-of-type(5) {
+    background:black
+  }
+  #container ul li:nth-of-type(6) {
+    background:yellow
+  }
+  #container ul li:nth-of-type(7) {
+    background:turquoise
+  }
+  #container ul li:nth-of-type(8) {
+    background:navajowhite
+  }
+  #container ul li:nth-of-type(9) {
+    background:darkblue
+  }
+  #container ul li:nth-of-type(10) {
+    background:black
+  } */
+  .empty {
+    height: 300px;
+    width: 200px;
+    /* border: 1px solid red; */
+  }
+
+  </style>
+</head>
+<body>
+  <div id="container">
+    <ul class="content">
+      <li class="item item--1">1</li>
+      <li class="item item--2">2</li>
+      <li class="item item--3">3</li>
+      <li class="item item--4">4</li>
+      <li class="item item--5">5</li>
+    </ul>
+  </div>
+  <ul>
+    <li class="item" id="xx">xxx</li>
+  </ul>
+
+  <script src="./smooth-slide.js"></script>
+  <script>
+    window.onload = function() {
+      window.ss = new SmoothSlide({
+        el: '#container'
+      })
+    }
+  </script>
+</body>
+</html>
