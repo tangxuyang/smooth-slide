@@ -1,12 +1,15 @@
 /**
-     * 1. 支持水平和垂直滚动，包括ltr、rtl，ttb、btt四个方向
-     * 2. 支持指定速度
-     * 3. 支持动态添加和减少项目，这个必须支持
-     * 
-     */
+ * 1. 支持水平和垂直滚动，包括ltr、rtl，ttb、btt四个方向 支持方向要改好多地方，我突然不想支持了:(
+ * 2. 支持指定速度 done
+ * 3. 支持动态添加和减少项目，这个必须支持 done
+ * 
+ */
+
+// 默认配置
  const defaultOptions = {
-  contentClass: '.content',
-  itemClass: '.item',
+  el: '#container', // 外部容器
+  contentClass: '.content', // 内容区域的容器的类名
+  itemClass: '.item', // 项目的类名
   duration: 60,
   speed: 8
 }
@@ -18,6 +21,7 @@ function SmoothSlide(options) {
   this.init()
 }
 
+// 开始滚动
 SmoothSlide.prototype.start = function() {
   let that = this
   this.timer = setInterval(function run() {
@@ -25,6 +29,7 @@ SmoothSlide.prototype.start = function() {
   }, this.options.duration)
 }
 
+// 停止滚动
 SmoothSlide.prototype.stop = function() {
   this.timer && clearInterval(this.timer)
 }
@@ -36,12 +41,14 @@ SmoothSlide.prototype.findFirstItemInView = function() {
   return item
 }
 
+// 判断是否在可是区域内
 SmoothSlide.prototype.isInView = function(item) {
   const offsetTop = -this.content.offsetTop
   const offsetBottom = offsetTop + this.container.offsetHeight
   return !((item.offsetTop + item.offsetHeight) < offsetTop || item.offsetTop > offsetBottom)
 }
 
+// 获取指定元素的位置
 SmoothSlide.prototype.getPlaceOfItem = function(item) {
   const offsetTop = -this.content.offsetTop
   const offsetBottom = offsetTop + this.container.offsetHeight
@@ -54,6 +61,7 @@ SmoothSlide.prototype.getPlaceOfItem = function(item) {
   return 'in'
 }
 
+// 添加元素
 SmoothSlide.prototype.addItem = function(item) {
   // 获取当前可视区内首个，然后把新的内容插到他的上面
   const firstItem = this.findFirstItemInView()
@@ -66,6 +74,7 @@ SmoothSlide.prototype.addItem = function(item) {
   this.calcHeight()
 }
 
+// 删除元素
 SmoothSlide.prototype.removeItem = function(item) {
   // 判断要删除元素是在视口上面、里面还是下面
   // 如果在上面，则相应减少top
@@ -87,7 +96,7 @@ SmoothSlide.prototype.removeItem = function(item) {
     let that = this
     setTimeout(function() {
       that.removeItem(item)
-    }, this.options.duration * 10)
+    }, this.options.duration * 10) // 10是个魔数，我也解释不清楚，反正管用，别的应该也可以的
   }
 }
 
@@ -116,6 +125,7 @@ SmoothSlide.prototype.init = function() {
   }
 }
 
+// 滚动操作
 SmoothSlide.prototype.run = function() {
   let content = this.content
   if (content.offsetTop > 0) {
@@ -125,8 +135,8 @@ SmoothSlide.prototype.run = function() {
   content.style.top = content.offsetTop + this.options.speed + "px"
 }
 
+// 计算.content的高度
 SmoothSlide.prototype.calcHeight = function() {
-  // this.items = this.content.querySelectorAll(this.options.itemClass)
   this.items = Array.prototype.slice.call(this.content.querySelectorAll(this.options.itemClass))
   this.itemHeight = this.items && this.items[0].offsetHeight || 0
   this.content.style.height = this.emptyItemHeight + this.items.length * (this.items && this.items[0].offsetHeight || 0) + 'px'
