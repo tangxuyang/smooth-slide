@@ -1,0 +1,12 @@
+{
+  "name": "smooth-slide",
+  "version": "0.0.1",
+  "description": "支持动态修改列表项目的滚动插件",
+  "main": "smooth-slide.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
