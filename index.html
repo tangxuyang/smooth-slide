@@ -50,7 +50,7 @@
     background:black
   }
   .empty {
-    height: 300px;
+    height: 0;
     width: 200px;
   }
   .operation {
@@ -89,6 +89,7 @@
       window.ss = new SmoothSlide({
         el: '#container',
         speed: 4,
+        autoPlay: false,
         beforeAdd: function(item) {
           console.log('beforeAdd')
           item.classList.add('fade-in')
@@ -106,7 +107,7 @@
           console.log('removed')
         }
       })
-      window.ss.start()
+      // window.ss.start()
       let addedItems = []
       addBtn.addEventListener('click', function() {
         let item = document.createElement('li')
