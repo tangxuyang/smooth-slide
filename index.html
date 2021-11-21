@@ -19,6 +19,8 @@
     overflow:hidden;
     color: red;
     margin: 200px auto;
+    /* border: 1px solid silver; */
+    outline: 2px solid silver;
   }
   #container ul {
     width:200px;
@@ -51,6 +53,12 @@
     height: 300px;
     width: 200px;
   }
+  .operation {
+    text-align: center;
+  }
+  .new {
+    background: rgba(255, 0, 0, .3);
+  }
 
   </style>
 </head>
@@ -73,13 +81,16 @@
   <script>
     window.onload = function() {
       window.ss = new SmoothSlide({
-        el: '#container'
+        el: '#container',
+        speed: 4,
       })
+      window.ss.start()
       let addedItems = []
       addBtn.addEventListener('click', function() {
         let item = document.createElement('li')
         item.classList.add('item')
-        item.innerText = Date.now()
+        item.classList.add('new')
+        item.innerText = '新增--' + Date.now()
         addedItems.push(item)
         ss.addItem(item)
       })
