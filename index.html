@@ -59,7 +59,13 @@
   .new {
     background: rgba(255, 0, 0, .3);
   }
+  .fade-in {
+    transition: all 1s;
+    background:rgba(0, 255, 0, .3)
+  }
+  .fade-out {
 
+  }
   </style>
 </head>
 <body>
@@ -83,6 +89,22 @@
       window.ss = new SmoothSlide({
         el: '#container',
         speed: 4,
+        beforeAdd: function(item) {
+          console.log('beforeAdd')
+          item.classList.add('fade-in')
+        },
+        added: function(item) {
+          console.log('added')
+          setTimeout(function() {
+            item.classList.remove('fade-in')
+          }, 4000)
+        },
+        beforeRemove: function(item) {
+          console.log('beforeRemove')
+        },
+        removed: function(item) {
+          console.log('removed')
+        }
       })
       window.ss.start()
       let addedItems = []
