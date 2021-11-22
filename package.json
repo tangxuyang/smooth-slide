@@ -1,6 +1,6 @@
 {
   "name": "smooth-slide",
-  "version": "0.0.6-beta",
+  "version": "0.0.7",
   "description": "支持动态增减列表项目的滚动插件",
   "main": "./lib/smooth-slide.js",
   "scripts": {
