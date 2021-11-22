@@ -75,11 +75,11 @@
   </div>
   <div id="container">
     <ul class="content">
-      <li class="item item--1">1</li>
+      <!-- <li class="item item--1">1</li>
       <li class="item item--2">2</li>
       <li class="item item--3">3</li>
       <li class="item item--4">4</li>
-      <li class="item item--5">5</li>
+      <li class="item item--5">5</li> -->
     </ul>
   </div>
 
@@ -114,8 +114,15 @@
         item.classList.add('item')
         item.classList.add('new')
         item.innerText = '新增--' + Date.now()
+        let item2 = document.createElement('li')
+        item2.classList.add('item')
+        item2.classList.add('new')
+        item2.innerText = '新增--' + Date.now()
         addedItems.push(item)
+        addedItems.push(item2)
         ss.addItem(item)
+        ss.addItem(item2)
+        
       })
       removeBtn.addEventListener('click', function() {
         let item = addedItems.pop()
