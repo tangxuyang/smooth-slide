@@ -12,24 +12,24 @@
     list-style:none;
     float:left
   } */
-  #container {
+  #container, #container2 {
     width:200px;
     height:300px;
     position:relative;
     overflow:hidden;
     color: red;
-    margin: 200px auto;
+    margin: 100px auto;
     /* border: 1px solid silver; */
     outline: 2px solid silver;
   }
-  #container ul {
+  #container ul, #container2 ul {
     width:200px;
     height:300px;
     position:absolute;
     padding: 0;
     margin: 0;
   }
-  #container ul li {
+  #container ul li, #container2 ul li {
     width:200px;
     height:100px;
     list-style: none;
@@ -50,7 +50,7 @@
     background:black
   }
   .empty {
-    height: 0;
+    height: 300px;
     width: 200px;
   }
   .operation {
@@ -66,21 +66,54 @@
   .fade-out {
 
   }
+
+  #container2 .empty {
+    height: 0;
+  }
+
+  .body {
+    display: flex;
+  }
+
+  .left {
+    width: 50%;
+  }
+  .right {
+    width: 50%;
+  }
   </style>
 </head>
 <body>
-  <div class="operation">
-    <button id="addBtn">add</button>
-    <button id="removeBtn">remove</button>
+  <div style="text-align: center;">
+    <p>支持两种模式：一直滚动，添加新元素时从顶部滚动下来</p>
+    <p>一开始我认为我的需求是第一种，后来发现只是要求在有最新的数据进来时从顶部往下推，即滚动下来</p>
   </div>
-  <div id="container">
-    <ul class="content">
-      <!-- <li class="item item--1">1</li>
-      <li class="item item--2">2</li>
-      <li class="item item--3">3</li>
-      <li class="item item--4">4</li>
-      <li class="item item--5">5</li> -->
-    </ul>
+  <div class="body">
+    <div class="left">
+      <div class="operation">
+        <button id="addBtn">add</button>
+        <button id="removeBtn">remove</button>
+      </div>
+      <div id="container">
+        <ul class="content">
+          <li class="item item--1">1</li>
+          <li class="item item--2">2</li>
+          <li class="item item--3">3</li>
+          <li class="item item--4">4</li>
+          <li class="item item--5">5</li>
+        </ul>
+      </div>
+    </div>
+    <div class="right">
+      <div class="operation">
+        <button id="addBtn2">add</button>
+        <button id="removeBtn2">remove</button>
+      </div>
+      <div id="container2">
+        <ul class="content">
+        </ul>
+      </div>
+    </div>
   </div>
 
   <script src="./lib/smooth-slide.js"></script>
@@ -88,6 +121,42 @@
     window.onload = function() {
       window.ss = new SmoothSlide({
         el: '#container',
+        speed: 4,
+        // autoPlay: false,
+        beforeAdd: function(item) {
+          console.log('beforeAdd')
+          item.classList.add('fade-in')
+        },
+        added: function(item) {
+          console.log('added')
+          setTimeout(function() {
+            item.classList.remove('fade-in')
+          }, 4000)
+        },
+        beforeRemove: function(item) {
+          console.log('beforeRemove')
+        },
+        removed: function(item) {
+          console.log('removed')
+        }
+      })
+      window.ss.start()
+      let addedItems = []
+      addBtn.addEventListener('click', function() {
+        let item = document.createElement('li')
+        item.classList.add('item')
+        item.classList.add('new')
+        item.innerText = '新增--' + Date.now()
+        addedItems.push(item)
+        ss.addItem(item)
+      })
+      removeBtn.addEventListener('click', function() {
+        let item = addedItems.pop()
+        ss.removeItem(item)
+      })
+    
+      window.sss = new SmoothSlide({
+        el: '#container2',
         speed: 4,
         autoPlay: false,
         beforeAdd: function(item) {
@@ -107,27 +176,21 @@
           console.log('removed')
         }
       })
-      // window.ss.start()
-      let addedItems = []
-      addBtn.addEventListener('click', function() {
+      window.sss.start()
+      let addedItems2 = []
+      addBtn2.addEventListener('click', function() {
         let item = document.createElement('li')
         item.classList.add('item')
         item.classList.add('new')
         item.innerText = '新增--' + Date.now()
-        let item2 = document.createElement('li')
-        item2.classList.add('item')
-        item2.classList.add('new')
-        item2.innerText = '新增--' + Date.now()
-        addedItems.push(item)
-        addedItems.push(item2)
-        ss.addItem(item)
-        ss.addItem(item2)
-        
+        addedItems2.push(item)
+        sss.addItem(item)
       })
-      removeBtn.addEventListener('click', function() {
-        let item = addedItems.pop()
-        ss.removeItem(item)
+      removeBtn2.addEventListener('click', function() {
+        let item = addedItems2.pop()
+        sss.removeItem(item, true)
       })
+    
     }
   </script>
 </body>
